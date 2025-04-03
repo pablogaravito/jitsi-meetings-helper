@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.app-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.time-picker {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.time-select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg...");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 30px;
+}
+
+.time-input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 40px; /* Fixed width for minutes */
+    text-align: center;
+}
+
+/* Side-by-side layout */
+.output-section.side-by-side {
+    padding-top: 10px;
+    display: flex;
+    gap: 20px; /* Space between textareas */
+  }
+  
+  .output-group {
+    flex: 1; /* Equal width */
+    min-width: 0; /* Prevents overflow */
+  }
+  
+  .output-box {
+    height: 200px; /* Fixed height (or keep resize: vertical) */
+  }
+  
+  /* Responsive: Stack on mobile */
+  @media (max-width: 768px) {
+    .output-section.side-by-side {
+      flex-direction: column;
+    }
+  }
+  
+  .output-box {
+    width: 80%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    font-family: monospace;
+  }
+  
+  .copy-btn {
+    align-self: flex-start; /* Left-align button */
+    padding: 6px 12px;
+    background: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .copy-btn:hover {
+    background: #d0d0d0;
+  }

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date & Time Picker</title>
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <h1>Schedule Picker</h1>
+        <form id="main-form">
+            <!-- Jitsi Meet Links -->
+            <div class="form-group">
+                <label for="guest-link">Link for Guests</label>
+                <input type="text" id="guest-link" placeholder="Paste link for Guests">
+            </div>
+            <div class="form-group">
+                <label for="moderator-link">Link for Moderator</label>
+                <input type="text" id="moderator-link" placeholder="Paste link for Moderator">
+            </div>
+
+            <!-- Date picker (Flatpickr) -->
+            <div class="form-group">
+                <label for="date-picker">Select Date (dd/mm/yyyy):</label>
+                <input type="text" id="date-picker" placeholder="Select date">
+            </div>
+            
+            <!-- Time picker -->
+            <div class="form-group">
+                <label>Meeting Time:</label>
+                <div class="time-picker">
+                    <!-- Hour Dropdown (1-12) -->
+                    <select id="hour-picker" class="time-select">
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <span>:</span>
+            
+                    <!-- Minute Dropdown (00, 30 or Custom) -->
+                    <select id="minute-picker" class="time-select">
+                        <option value="00">00</option>
+                        <option value="30">30</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                    <input type="number" class="time-select" id="custom-minutes" min="0" max="59" placeholder="Enter minutes" style="display: none;">
+            
+                    <!-- AM/PM Dropdown (PM default) -->
+                    <select id="ampm-picker" class="time-select">
+                        <option value="a.m.">AM</option>
+                        <option value="p.m." selected>PM</option>
+                    </select>
+            </div>
+        </div>            
+            <button type="button" id="generate-button">Generate</button>
+            <span id="output"></span>
+        </form>
+
+        <div class="output-section side-by-side">
+            <!-- Guest meeting invitation -->
+            <div class="output-group">
+              <label for="guests-meeting-invitation">Meeting invitation for Guests:</label>
+              <textarea id="guests-meeting-invitation" rows="8" readonly class="output-box"></textarea>
+              <button class="copy-btn" data-target="guests-meeting-invitation">📋 Copy to Clipboard</button>
+            </div>
+          
+            <!-- Meeting summary info -->
+            <div class="output-group">
+              <label for="meeting-summary">Meeting summary info:</label>
+              <textarea id="meeting-summary" rows="8" readonly class="output-box"></textarea>
+              <button class="copy-btn" data-target="meeting-summary">📋 Copy to Clipboard</button>
+            </div>
+          </div>
+    </div>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="app.js"></script>
+</body>
+</html>
