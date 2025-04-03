@@ -37,19 +37,30 @@ document.addEventListener('DOMContentLoaded', function() {
         const guestInvitation = document.getElementById('guests-meeting-invitation');
         const meetingSummary = document.getElementById('meeting-summary');
         const selectedDate = datePicker.input.value; // dd/mm/yyyy
+
+        const errorOutput = document.getElementById('error-output');
     
         let minutes = minutePicker.value === 'custom' ? customMinutesInput.value : minutePicker.value;
-        minutes = minutes.padStart(2, "0"); // Ensure two-digit format
+        minutes = minutes.padStart(2, '0'); // Ensure two-digit format
     
+        errorOutput.textContent = '';
+
     if (!selectedDate) {
-        document.getElementById("output").textContent = 'Please select a date.';
+      errorOutput.textContent = 'Please select a date.';
         return;
+    }
+
+    //basic validation for links
+    //TODO: add basic validation for links (regex)
+    if (!guestLink.value || !moderatorLink.value) {
+      errorOutput.textContent = 'Please insert the links for the meeting.'
+      return;
     }
 
     const spanishDate = formatSpanishDate(selectedDate);
     
     if (isNaN(minutes) || minutes < 0 || minutes > 59) {
-        document.getElementById("output").textContent = "Please enter valid minutes (0-59).";
+      errorOutput.textContent = 'Please enter valid minutes (0-59).';
         return;
     }   
     
