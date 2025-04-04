@@ -50,10 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    //basic validation for links
-    //TODO: add basic validation for links (regex)
-    if (!guestLink.value || !moderatorLink.value) {
-      errorOutput.textContent = 'Please insert the links for the meeting.'
+    //  validation for links
+    if (!isValidJitsiLink(guestLink.value, 'guestLink') || !isValidJitsiLink(moderatorLink.value, 'moderatorLink')) {
+      errorOutput.textContent = 'Please insert valid Jitsi Meet links.'
       return;
     }
 
@@ -132,6 +131,27 @@ function formatSpanishDate(dateStr) {
 
     return `${hours}${hasMinutes ? '.' + minutes : ''}${period}`;
   }
+
+  function isValidJitsiLink(link, linkType) {
+    // patterns for each link type
+    const patterns = {
+        guestLink: {
+            regex: /^https:\/\/meet\.jit\.si\/moderated\/[a-f0-9]{64}$/i,
+            description: "https://meet.jit.si/moderated/ followed by 64 hex characters"
+        },
+        moderatorLink: {
+            regex: /^https:\/\/moderated\.jitsi\.net\/[a-f0-9]{64}$/i,
+            description: "https://moderated.jitsi.net/ followed by 64 hex characters"
+        }
+    };
+
+    if (!patterns[linkType]) {
+        console.error(`Invalid link type specified. Use 'guestLink' or 'moderatorLink'.`);
+        return false;
+    }
+
+    return patterns[linkType].regex.test(link);
+}
 
 
 
