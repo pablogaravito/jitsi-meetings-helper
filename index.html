@@ -11,15 +11,15 @@
 <body>
     <div class="app-container">
         <h1>Jitsi Meetings Helper by Pablis</h1>
-        <form id="main-form" autocomplete="off">
+        <form id="main-form">
             <!-- Jitsi Meet Links -->
             <div class="form-group">
                 <label for="guest-link">Link for Guests</label>
-                <input type="text" id="guest-link" placeholder="Paste link for Guests" autocomplete="off">
+                <input type="text" id="guest-link" placeholder="Paste link for Guests">
             </div>
             <div class="form-group">
                 <label for="moderator-link">Link for Moderator</label>
-                <input type="text" id="moderator-link" placeholder="Paste link for Moderator" autocomplete="off">
+                <input type="text" id="moderator-link" placeholder="Paste link for Moderator">
             </div>
 
             <!-- Date picker (Flatpickr) -->
@@ -82,6 +82,9 @@
               <textarea id="meeting-summary" rows="8" readonly class="output-box"></textarea>
               <button class="copy-btn" data-target="meeting-summary">📋 Copy to Clipboard</button>
             </div>
+          </div>
+          <div class="alert-container hidden">
+            Error!
           </div>
     </div>
 
