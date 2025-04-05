@@ -144,3 +144,38 @@ button:hover {
 .hidden.alert-container {
   right: -500px;
 }
+
+    /* Main container (side-by-side) */
+    .datetime-container {
+      display: flex;
+      gap: 35px; /* Space between date and time */
+      align-items: flex-start; /* Align to top */
+  }
+
+  /* Date and Time pickers (left-aligned, stacked) */
+  .date-picker, .time-picker {
+      display: flex;
+      flex-direction: column; /* Stack label + controls vertically */
+      align-items: flex-start; /* Left-align everything */
+  }
+
+  /* Time picker controls (inline) */
+  .time-picker-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+  }
+
+  /* Consistent styling */
+  label {
+      font-weight: bold;
+      margin-bottom: 5px; /* Space between label and control */
+  }
+  .time-select {
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+  }
+  #date-picker {
+    padding: 9px;
+  }
