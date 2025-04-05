@@ -46,8 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
           : minutePicker.value;
       minutes = minutes.padStart(2, "0"); // Ensure two-digit format
 
-      console.log(minutes);
-
       if (!selectedDate) {
         showAlert("Please select a date.");
         return;
