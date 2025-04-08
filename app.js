@@ -31,6 +31,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  document.getElementById("create-meeting-btn").addEventListener("click", function() {
+    console.log("llegué aquí");
+    window.open('https://moderated.jitsi.net', '_blank');
+    document.getElementById("links-paste-area").value = "";
+    document.getElementById("main-form").classList.remove("hidden");
+    this.classList.add("hidden");
+  });
+
   document
     .getElementById("generate-button")
     .addEventListener("click", function () {
@@ -51,14 +59,26 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      //  validation for links
-      if (
-        !isValidJitsiLink(guestLink.value, "guestLink") ||
-        !isValidJitsiLink(moderatorLink.value, "moderatorLink")
-      ) {
-        showAlert("Please insert valid Jitsi Meet links.");
-        return;
+      const linksPasteArea = document.getElementById("links-paste-area");
+
+      const pastedContent = linksPasteArea.value.trim();
+        
+      if (!pastedContent) {
+          showAlert('Please paste the meeting page contents first');
+          return;
       }
+      
+      const links = extractMeetingLinks(pastedContent);
+      
+      if (links.moderator && links.guest) {
+          const invitation = generateInvitationTemplate(links);
+          invitationOutput.value = invitation;
+          resultSection.style.display = 'block';
+      } else {
+          showAlert('Could not find both meeting links. Please make sure you copied the entire page content.');
+      }
+
+
 
       const spanishDate = formatSpanishDate(selectedDate);
 
@@ -83,6 +103,12 @@ document.addEventListener("DOMContentLoaded", function () {
         `Cita ${spanishDate} ${selectedTime}\n\n` +
         `Invitación: ${guestLink.value}\n` +
         `moderator: ${moderatorLink.value}`;
+
+        const mainForm = document.getElementById("main-form");
+        const dateTimeContainer = document.getElementById("datetime-container");
+
+        mainForm.classList.add("hidden");
+        dateTimeContainer.add("hidden");
     });
 
   document.querySelectorAll(".copy-btn").forEach((button) => {
@@ -102,6 +128,11 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
+
+  document.getElementById("new-meeting").addEventListener("click", function() {
+    document.getElementById("create-meeting-btn").classList.remove("hidden");
+    document.getElementById("output-section").classList.add("hidden");
+  })
 });
 
 function formatSpanishDate(dateStr) {
@@ -146,30 +177,6 @@ function simplifyTime(timeStr) {
   return `${hours}${hasMinutes ? "." + minutes : ""}${period}`;
 }
 
-function isValidJitsiLink(link, linkType) {
-  // patterns for each link type
-  const patterns = {
-    guestLink: {
-      regex: /^https:\/\/meet\.jit\.si\/moderated\/[a-f0-9]{64}$/i,
-      description:
-        "https://meet.jit.si/moderated/ followed by 64 hex characters",
-    },
-    moderatorLink: {
-      regex: /^https:\/\/moderated\.jitsi\.net\/[a-f0-9]{64}$/i,
-      description: "https://moderated.jitsi.net/ followed by 64 hex characters",
-    },
-  };
-
-  if (!patterns[linkType]) {
-    console.error(
-      `Invalid link type specified. Use 'guestLink' or 'moderatorLink'.`
-    );
-    return false;
-  }
-
-  return patterns[linkType].regex.test(link);
-}
-
 function showAlert(msg) {
   const alertContainer = document.querySelector(".alert-container");
   alertContainer.textContent = msg;
@@ -181,4 +188,21 @@ function hideAlert() {
   const alertContainer = document.querySelector(".alert-container");
   alertContainer.textContent = "";
   alertContainer.classList.add("hidden");
+}
+
+function extractMeetingLinks(text) {
+  const guestLinkRegex = /https:\/\/meet\.jit\.si\/moderated\/[a-f0-9]{64}/i;
+  const moderatorLinkRegex = /https:\/\/moderated\.jitsi\.net\/[a-f0-9]{64}/i;
+
+  const guestLink = text.match(guestLinkRegex)?.[0];
+  const moderatorLink = text.match(moderatorLinkRegex)?.[0];
+  
+  if (!guestLink || !moderatorLink) {
+      throw new Error("Could not find both meeting links in the pasted text");
+  }
+  
+  return {
+      guest: guestLink,
+      moderator: moderatorLink
+  };
 }

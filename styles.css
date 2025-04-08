@@ -6,7 +6,7 @@ body {
 }
 
 .app-container {
-    max-width: 600px;
+    max-width: 65%;
     margin: 0 auto;
     background-color: white;
     padding: 20px;
@@ -17,6 +17,10 @@ body {
 h1 {
     color: #333;
     text-align: center;
+}
+
+#createMeetingBtn {
+  margin: 0 auto;
 }
 
 .form-group {
@@ -81,7 +85,7 @@ button:hover {
 }
 
 /* Side-by-side layout */
-.output-section.side-by-side {
+.side-by-side {
     padding-top: 10px;
     display: flex;
     gap: 20px; /* Space between textareas */
@@ -179,3 +183,21 @@ button:hover {
   #date-picker {
     padding: 9px;
   }
+
+  .paste-section {
+    margin: 20px 0;
+}
+
+.paste-area {
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    margin: 10px 0;
+}
+
+.hidden {
+  display: none;
+}
