@@ -14,7 +14,9 @@
   <body>
     <div class="app-container">
       <h1>Jitsi Meetings Helper by Pablis</h1>
-      <button id="create-meeting-btn" class="btn">Create New Session</button>
+      <div class="button-container">
+        <button id="create-meeting-btn" class="btn">Create New Session</button>
+      </div>
       <form id="main-form" class="hidden" autocomplete="off">
         <div class="paste-section">
           <p>After creating your meeting, paste the page contents below:</p>
@@ -25,7 +27,7 @@
           ></textarea>
         </div>
 
-        <div class="form-group datetime-container">
+        <div class="form-group" id="datetime-container">
           <!-- Date picker (Flatpickr) -->
           <div class="date-picker">
             <label>Date:</label>
@@ -77,10 +79,12 @@
             </div>
           </div>
         </div>
-        <button type="button" id="generate-button">Generate</button>
+        <div class="button-container">
+          <button type="button" id="generate-button">Generate</button>
+        </div>
       </form>
 
-      <div class="output-section side-by-side hidden">
+      <div id="output-section" class="output-section side-by-side hidden">
         <!-- Guest meeting invitation -->
         <div class="output-group">
           <label for="guests-meeting-invitation"
@@ -110,7 +114,9 @@
             📋 Copy to Clipboard
           </button>
         </div>
-        <button id="new-meeting">Nueva reunión</button>
+      </div>
+      <div class="button-container">
+        <button id="new-meeting" class="hidden">New Meeting</button>
       </div>
       <div class="alert-container hidden">Error!</div>
     </div>

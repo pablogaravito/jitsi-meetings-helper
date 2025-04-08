@@ -31,13 +31,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  document.getElementById("create-meeting-btn").addEventListener("click", function() {
-    console.log("llegué aquí");
-    window.open('https://moderated.jitsi.net', '_blank');
-    document.getElementById("links-paste-area").value = "";
-    document.getElementById("main-form").classList.remove("hidden");
-    this.classList.add("hidden");
-  });
+  document
+    .getElementById("create-meeting-btn")
+    .addEventListener("click", function () {
+      window.open("https://moderated.jitsi.net", "_blank");
+      document.getElementById("main-form").classList.remove("hidden");
+      this.classList.add("hidden");
+    });
 
   document
     .getElementById("generate-button")
@@ -62,23 +62,20 @@ document.addEventListener("DOMContentLoaded", function () {
       const linksPasteArea = document.getElementById("links-paste-area");
 
       const pastedContent = linksPasteArea.value.trim();
-        
+
       if (!pastedContent) {
-          showAlert('Please paste the meeting page contents first');
-          return;
+        showAlert("Please paste the meeting page contents first");
+        return;
       }
-      
+
       const links = extractMeetingLinks(pastedContent);
-      
-      if (links.moderator && links.guest) {
-          const invitation = generateInvitationTemplate(links);
-          invitationOutput.value = invitation;
-          resultSection.style.display = 'block';
-      } else {
-          showAlert('Could not find both meeting links. Please make sure you copied the entire page content.');
+
+      if (!links.moderator || !links.guest) {
+        showAlert(
+          "Could not find both meeting links. Please make sure you copied the entire page content."
+        );
+        return;
       }
-
-
 
       const spanishDate = formatSpanishDate(selectedDate);
 
@@ -88,27 +85,31 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const selectedTime = `${hourPicker.value}:${minutes} ${ampmPicker.value}`;
-      const simplifiedTime = simplifyTime(selectedTime);
 
       // Guest meeting invitation
-      guestInvitation.value =
-        `Pablo Garavito le está invitando a una reunión programada.\n\n` +
-        `Tema: Cita ${simplifiedTime}\n` +
-        `Hora: ${spanishDate} ${selectedTime}\n\n` +
-        `Link de la reunión:\n` +
-        `${guestLink.value}`;
+      guestInvitation.value = generateGuestInvitation(
+        links.guest,
+        selectedTime,
+        spanishDate
+      );
 
       // Meeting Summary
-      meetingSummary.value =
-        `Cita ${spanishDate} ${selectedTime}\n\n` +
-        `Invitación: ${guestLink.value}\n` +
-        `moderator: ${moderatorLink.value}`;
+      meetingSummary.value = generateMeetingSummary(
+        links.guest,
+        links.moderator,
+        selectedTime,
+        selectedDate
+      );
 
-        const mainForm = document.getElementById("main-form");
-        const dateTimeContainer = document.getElementById("datetime-container");
+      const mainForm = document.getElementById("main-form");
+      const dateTimeContainer = document.getElementById("datetime-container");
+      const outputSection = document.getElementById("output-section");
+      const newMeetingBtn = document.getElementById("new-meeting");
 
-        mainForm.classList.add("hidden");
-        dateTimeContainer.add("hidden");
+      mainForm.classList.add("hidden");
+      dateTimeContainer.classList.add("hidden");
+      outputSection.classList.remove("hidden");
+      newMeetingBtn.classList.remove("hidden");
     });
 
   document.querySelectorAll(".copy-btn").forEach((button) => {
@@ -129,10 +130,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  document.getElementById("new-meeting").addEventListener("click", function() {
+  document.getElementById("new-meeting").addEventListener("click", function () {
+    document.getElementById("links-paste-area").value = "";
     document.getElementById("create-meeting-btn").classList.remove("hidden");
     document.getElementById("output-section").classList.add("hidden");
-  })
+    this.classList.add("hidden");
+  });
 });
 
 function formatSpanishDate(dateStr) {
@@ -196,13 +199,37 @@ function extractMeetingLinks(text) {
 
   const guestLink = text.match(guestLinkRegex)?.[0];
   const moderatorLink = text.match(moderatorLinkRegex)?.[0];
-  
+
   if (!guestLink || !moderatorLink) {
-      throw new Error("Could not find both meeting links in the pasted text");
+    throw new Error("Could not find both meeting links in the pasted text");
   }
-  
+
   return {
-      guest: guestLink,
-      moderator: moderatorLink
+    guest: guestLink,
+    moderator: moderatorLink,
   };
+}
+
+function generateGuestInvitation(guestLink, selectedTime, spanishDate) {
+  const simplifiedTime = simplifyTime(selectedTime);
+  return (
+    `Pablo Garavito le está invitando a una reunión programada.\n\n` +
+    `Tema: Cita ${simplifiedTime}\n` +
+    `Hora: ${spanishDate} ${selectedTime}\n\n` +
+    `Link de la reunión:\n` +
+    `${guestLink}`
+  );
+}
+
+function generateMeetingSummary(
+  guestLink,
+  moderatorLink,
+  selectedTime,
+  spanishDate
+) {
+  return (
+    `Cita ${spanishDate} ${selectedTime}\n\n` +
+    `Invitación: ${guestLink}\n\n` +
+    `Moderator: ${moderatorLink}`
+  );
 }
