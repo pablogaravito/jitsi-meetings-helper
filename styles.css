@@ -1,14 +1,14 @@
 :root {
   /* Light theme (default) */
   --bg-color: #f5f5f5;
-  --card-bg: white;
+  --card-bg: #f5f5f4;
   --text-color: #333;
   --border-color: #ddd;
-  --primary-btn: #4361ee;  /* Vibrant blue */
-  --primary-hover: #3a56d4;
-  --copy-btn: #6c757d;
-  --copy-hover: #5a6268;
   --output-bg: #f9f9f9;
+  --primary-btn: #6d28d9;
+  --primary-hover: #5b21b6;
+  --copy-btn: #7c3aed;
+  --copy-hover: #6d28d9;
 }
 
 [data-theme="dark"] {
@@ -17,17 +17,20 @@
   --card-bg: #2d2d2d;
   --text-color: #f0f0f0;
   --border-color: #444;
-  --primary-btn: #5a67d8;
-  --primary-hover: #4c51bf;
-  --copy-btn: #718096;
-  --copy-hover: #4a5568;
   --output-bg: #3a3a3a;
+  --primary-btn: #ef476f;
+  --primary-hover: #e63b60;
+  --copy-btn: #ff5c8a;
+  --copy-hover: #ef476f;
 }
 
 body {
   font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
   margin: 0;
-  padding: 20px;
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
@@ -35,7 +38,7 @@ body {
 
 .app-container {
   max-width: 50%;
-  margin: 0 auto;
+  margin: 0;
   background-color: var(--card-bg);
   padding: 20px;
   border-radius: 8px;
@@ -71,7 +74,7 @@ input[type="date"] {
 }
 
 button {
-  background-color: #4caf50;
+  background-color: var(--primary-btn);
   color: white;
   padding: 10px 15px;
   border: none;
@@ -82,7 +85,7 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: var(--primary-hover);
 }
 
 .time-picker {
