@@ -13,13 +13,20 @@
   </head>
   <body>
     <div class="app-container">
+      <div class="theme-toggle">
+        <span>Dark Mode</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="theme-toggle">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
       <h1>Jitsi Meetings Helper by Pablis</h1>
       <div class="button-container">
         <button id="create-meeting-btn" class="btn">Create New Session</button>
       </div>
       <form id="main-form" class="hidden" autocomplete="off">
         <div class="paste-section">
-          <p>After creating your meeting, paste the page contents below:</p>
+          <p id="instruction">After creating your meeting, paste the page contents below:</p>
           <textarea
             id="links-paste-area"
             class="paste-area"

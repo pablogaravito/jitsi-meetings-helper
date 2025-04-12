@@ -136,6 +136,19 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("output-section").classList.add("hidden");
     this.classList.add("hidden");
   });
+
+  // Dark mode toggle
+  const themeToggle = document.getElementById("theme-toggle");
+  themeToggle.addEventListener("change", function () {
+    document.body.setAttribute("data-theme", this.checked ? "dark" : "light");
+    localStorage.setItem("theme", this.checked ? "dark" : "light");
+  });
+
+  // Load saved theme
+  if (localStorage.getItem("theme") === "dark") {
+    themeToggle.checked = true;
+    document.body.setAttribute("data-theme", "dark");
+  }
 });
 
 function formatSpanishDate(dateStr) {
